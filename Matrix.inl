@@ -1,5 +1,5 @@
 template <typename T>
-Matrix<T>::Matrix(size_t rows, size_t cols) : data(rows, vector<T>(cols)) {}
+Matrix<T>::Matrix(size_t rows, size_t cols) : data(rows, std::vector<T>(cols)) {}
 
 template <typename T>
 Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> init) {
@@ -54,7 +54,7 @@ Matrix<T> Matrix<T>::operator+(const Matrix& other) const {
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const Matrix& other) const {
 	if (cols() != other.rows())
-		throw std:invalid_argument("Matrix dimensions must match for multiplication.");
+		throw std::invalid_argument("Matrix dimensions must match for multiplication.");
 
 	Matrix result(rows(), other.cols());
 	for (size_t i = 0; i < rows(); i++) {
@@ -111,7 +111,7 @@ Matrix<T> Matrix<T>::inverse() const {
 
 	Matrix result(rows(), cols());
 
-	std::vector<vector<T>> copyData = data;
+	std::vector<std::vector<T>> copyData = data;
 
 	T temp;
 

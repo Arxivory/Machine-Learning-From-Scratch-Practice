@@ -9,7 +9,7 @@
 template <typename T>
 class Matrix {
 public:
-	std::vector<vector<T>> data;
+	std::vector<std::vector<T>> data;
 
 	Matrix(size_t rows, size_t cols);
 	Matrix(std::initializer_list<std::initializer_list<T>> init);
@@ -43,6 +43,8 @@ public:
 				os << std::endl;
 		}
 		os << "]";
+
+		return os;
 	}
 };
 
