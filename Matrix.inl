@@ -2,6 +2,21 @@ template <typename T>
 Matrix<T>::Matrix(size_t rows, size_t cols) : data(rows, vector<T>(cols)) {}
 
 template <typename T>
+Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> init) {
+	if (init.size() == 0) 
+		throw std::invalid_argument("Matrix must be non-empty");
+
+	auto expected_size = init.begin()->size();
+
+	for (const auto& row : init) {
+		if (row.size() != expected_size) {
+			throw std::invalid_argument("All rows must have the same number of columns");
+		}
+		data.emplace_back(row); 
+	}
+}
+
+template <typename T>
 T& Matrix<T>::at(size_t r, size_t c) {
 	return data[r][c];
 }

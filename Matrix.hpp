@@ -4,6 +4,7 @@
 
 #include "Vector.hpp"
 #include <vector>
+#include <initializer_list>
 
 template <typename T>
 class Matrix {
@@ -11,6 +12,7 @@ public:
 	std::vector<vector<T>> data;
 
 	Matrix(size_t rows, size_t cols);
+	Matrix(std::initializer_list<std::initializer_list<T>> init);
 	T& at(size_t r, size_t c);
 	const T& at(size_t r, size_t c) const;
 	size_t rows() const;
