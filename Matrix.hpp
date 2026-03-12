@@ -26,6 +26,22 @@ public:
 
 	Matrix inverse() const;
 	T determinant() const;
+
+	friend std::ostream& operator<<(std::ostream& os, const Matrix<T>& m) {
+		os << "[";
+		for (size_t i = 0; i < m.rows(); i++) {
+			os << "[";
+			for (size_t j = 0; j < m.cols(); j++) {
+				os << m.data[i][j];
+				if (j < m.cols() - 1)
+					os << ", ";
+			}
+			os << "]";
+			if (i < m.rows() - 1)
+				os << std::endl;
+		}
+		os << "]";
+	}
 };
 
 #include "Matrix.inl"
