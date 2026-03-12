@@ -96,7 +96,7 @@ Matrix<T> Matrix<T>::transpose() const {
 }
 
 template <typename T>
-static Matrix<T> Matrix<T>::identity(size_t n) {
+Matrix<T> Matrix<T>::identity(size_t n) {
 	Matrix result(n, n);
 	for (size_t i = 0; i < n; i++) {
 		result.at(i, i) = static_cast<T>(1);
@@ -109,39 +109,39 @@ Matrix<T> Matrix<T>::inverse() const {
 	if (rows() != cols())
 		throw std::invalid_argument("Only square matrices can be inverted.");
 
-	Matrix result(rows(), cols());
+	size_t n = rows();
 
-	std::vector<std::vector<T>> copyData = data;
+	Matrix<T> augmented(n, 2 * n);
 
-	T temp;
-
-	for (size_t i = rows() - 1; i > 0; i--) {
-		if (at(i - 1, 0) < at(i, 0)) {
-			std::vector<T> tempRow = copyData[i - 1];
-			copyData[i - 1] = copyData[i];
-			copyData[i] = tempRow;
+	for (size_t i = 0; i < n; i++) {
+		for (size_t j = 0; j < n; j++) {
+			augmented.at(i, j) = at(i, j);
+			augmented.at(i, j + n) = (i == j) ? static_cast<T>(1) : static_cast<T>(0);
 		}
 	}
 
-	for (size_t i = 0; i < rows(); i++) {
-		for (size_t j = 0; j < cols(); j++) {
-			if (i != j) {
-				temp = at(j, i) / at(i, i);
-
-				for (size_t k = 0; k < cols(); k++) {
-					at(j, k) -= at(i, k) * temp;
-				}
+	for (size_t i = 0; i < n; i++) {
+		T pivot = augmented.at(i, i);
+		if (pivot == static_cast<T>(0))
+			throw std::runtime_error("Matrix is singular and cannot be inverted.");
+		for (size_t j = 0; j < 2 * n; j++) {
+			augmented.at(i, j) /= pivot;
+		}
+		for (size_t k = 0; k < n; k++) {
+			if (k == i) continue;
+			T factor = augmented.at(k, i);
+			for (size_t j = 0; j < 2 * n; j++) {
+				augmented.at(k, j) -= factor * augmented.at(i, j);
 			}
 		}
 	}
 
-	for (size_t i = 0; i < rows(); i++) {
-		temp = at(i, i);
-
-		for (size_t j = 0; j < cols(); j++) {
-			result.at(i, j) = at(i, j) / temp;
+	Matrix<T> inverse(n, n);
+	for (size_t i = 0; i < n; i++) {
+		for (size_t j = 0; j < n; j++) {
+			inverse.at(i, j) = augmented.at(i, j + n);
 		}
 	}
 
-	return result;
+	return inverse;
 }
