@@ -93,4 +93,40 @@ template <typename T>
 Matrix<T> Matrix<T>::inverse() const {
 	if (rows() != cols())
 		throw std::invalid_argument("Only square matrices can be inverted.");
+
+	Matrix result(rows(), cols());
+
+	std::vector<vector<T>> copyData = data;
+
+	T temp;
+
+	for (size_t i = rows() - 1; i > 0; i--) {
+		if (at(i - 1, 0) < at(i, 0)) {
+			std::vector<T> tempRow = copyData[i - 1];
+			copyData[i - 1] = copyData[i];
+			copyData[i] = tempRow;
+		}
+	}
+
+	for (size_t i = 0; i < rows(); i++) {
+		for (size_t j = 0; j < cols(); j++) {
+			if (i != j) {
+				temp = at(j, i) / at(i, i);
+
+				for (size_t k = 0; k < cols(); k++) {
+					at(j, k) -= at(i, k) * temp;
+				}
+			}
+		}
+	}
+
+	for (size_t i = 0; i < rows(); i++) {
+		temp = at(i, i);
+
+		for (size_t j = 0; j < cols(); j++) {
+			result.at(i, j) = at(i, j) / temp;
+		}
+	}
+
+	return result;
 }

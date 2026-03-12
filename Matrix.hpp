@@ -12,7 +12,7 @@ public:
 
 	Matrix(size_t rows, size_t cols);
 	T& at(size_t r, size_t c);
-	const T& at(size_t r, size_t c);
+	const T& at(size_t r, size_t c) const;
 	size_t rows() const;
 	size_t cols() const;
 
