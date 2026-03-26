@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Matrix.inl" />
+    <None Include="Solvers.inl" />
     <None Include="Vector.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

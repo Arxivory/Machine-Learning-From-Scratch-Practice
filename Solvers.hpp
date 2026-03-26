@@ -15,5 +15,7 @@ public:
 	static Vector<T> qrDecomposition(Matrix<T> A, Vector<T> b);
 };
 
+#include "Solvers.inl"
+
 #endif // !SOLVERS_H
 

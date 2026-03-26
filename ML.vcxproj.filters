@@ -37,5 +37,8 @@
     <None Include="Matrix.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="Solvers.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
