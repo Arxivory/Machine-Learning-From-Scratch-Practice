@@ -4,7 +4,7 @@ Vector<T> Solvers<T>::gaussianElimination(Matrix<T> A, Vector<T> b) {
 	for (size_t i = 0; i < n; i++) {
 		size_t max_row = i;
 		for (size_t k = i + 1; k < n; k++) {
-			if (std::abs(A.at(k, i)) > std:abs(A.at(max_row, i))) {
+			if (std::abs(A.at(k, i)) > std::abs(A.at(max_row, i))) {
 				max_row = k;
 			}
 		}
@@ -20,7 +20,7 @@ Vector<T> Solvers<T>::gaussianElimination(Matrix<T> A, Vector<T> b) {
 	}
 
 	Vector<T> x(n);
-	for (size_t i = n - 1; i >= 0; i--) {
+	for (int i = n - 1; i >= 0; i--) {
 		x[i] = b[i];
 		for (size_t j = i + 1; j < n; j++) {
 			x[i] -= A.at(i, j) * x[j];
